@@ -1,0 +1,45 @@
+{% extends 'base.html' %}
+
+{% load staticfiles %}
+
+{% block side_block %}
+{% if user.is_authenticated %}
+<h>you are logged in.</h>
+<strong>start chatting!!!</strong>
+{% else %}
+<strong>please log in or register first</strong>
+{% endif %}
+{% endblock %}
+
+{% block body_block %}
+
+{% if user.is_authenticated %}
+
+<head>welcome to the chat stream!!</head>
+
+<form action = "{% url 'index' %}" method="POST" id="post-form" name="chat_form">
+    {% csrf_token %}
+    {{ form.as_p }}
+    <input type="submit" name="submit" value="submit"/>
+</form>
+
+
+<ul id="talk">
+</ul>
+
+{% else %}
+
+
+<ul>
+    <li>welcome to the chat stream!!</li>
+    <li>please log in or register first!!</li>
+</ul>
+
+{% endif %}
+{% endblock %}
+
+{% block javascript %}
+
+<script src="{% static 'scripts/main.js' %}"></script>
+
+{% endblock %}
